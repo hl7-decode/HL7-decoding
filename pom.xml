@@ -7,41 +7,103 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <hapi.version.stable>1.2</hapi.version.stable>
+        <hapi.version>2.3</hapi.version>
+        <hapi.version.structures>2.3</hapi.version.structures>
+        <hapi.version.stable>2.2</hapi.version.stable>
+        <hapi.version.testpanel>2.0.1</hapi.version.testpanel>
         <slf4j.version>1.6.2</slf4j.version>
         <log4j.version>1.6.2</log4j.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.15</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.34.Final</version>
+        </dependency>
         <dependency>
             <groupId>ca.uhn.hapi</groupId>
             <artifactId>hapi-base</artifactId>
-            <version>${hapi.version.stable}</version>
-        </dependency> <!-- This is the structure JAR for HL7 v2.1 -->
+            <version>${hapi.version}</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>ca.uhn.hapi</groupId>-->
+<!--            <artifactId>hapi-hl7overhttp</artifactId>-->
+<!--            <version>${hapi.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>ca.uhn.hapi</groupId>-->
+<!--            <artifactId>hapi-structures-v21</artifactId>-->
+<!--            <version>${hapi.version.structures}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>ca.uhn.hapi</groupId>-->
+<!--            <artifactId>hapi-structures-v22</artifactId>-->
+<!--            <version>${hapi.version.structures}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>ca.uhn.hapi</groupId>-->
+<!--            <artifactId>hapi-structures-v23</artifactId>-->
+<!--            <version>${hapi.version.structures}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>ca.uhn.hapi</groupId>-->
+<!--            <artifactId>hapi-structures-v231</artifactId>-->
+<!--            <version>${hapi.version.structures}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>ca.uhn.hapi</groupId>-->
+<!--            <artifactId>hapi-structures-v24</artifactId>-->
+<!--            <version>${hapi.version.structures}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>ca.uhn.hapi</groupId>-->
+<!--            <artifactId>hapi-structures-v25</artifactId>-->
+<!--            <version>${hapi.version.structures}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>ca.uhn.hapi</groupId>-->
+<!--            <artifactId>hapi-structures-v251</artifactId>-->
+<!--            <version>${hapi.version.structures}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>ca.uhn.hapi</groupId>-->
+<!--            <artifactId>hapi-structures-v26</artifactId>-->
+<!--            <version>${hapi.version.structures}</version>-->
+<!--        </dependency>-->
         <dependency>
-            <groupId>ca.uhn.hapi</groupId>
-            <artifactId>hapi-structures-v21</artifactId>
-            <version>${hapi.version.stable}</version>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.1</version>
         </dependency>
         <dependency>
-            <groupId>ca.uhn.hapi</groupId>
-            <artifactId>hapi-structures-v23</artifactId>
-            <version>${hapi.version.stable}</version>
-        </dependency>
-        <dependency>
-            <groupId>ca.uhn.hapi</groupId>
-            <artifactId>hapi-structures-v24</artifactId>
-            <version>${hapi.version.stable}</version>
-        </dependency>
-        <dependency>
-            <groupId>ca.uhn.hapi</groupId>
-            <artifactId>hapi-structures-v25</artifactId>
-            <version>${hapi.version.stable}</version>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-embedded</artifactId>
+            <version>6.1.26</version>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -67,16 +129,7 @@
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>3.0.0</version>
                     <dependencies>
-                        <dependency>
-                            <groupId>com.puppycrawl.tools</groupId>
-                            <artifactId>checkstyle</artifactId>
-                            <version>8.10</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.github.ngeor</groupId>
-                            <artifactId>checkstyle-rules</artifactId>
-                            <version>1.1.0</version>
-                        </dependency>
+
                     </dependencies>
                     <configuration>
                         <configLocation>com/github/ngeor/checkstyle.xml</configLocation>
@@ -103,11 +156,6 @@
     </build>
     <reporting>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.0</version>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -182,11 +230,6 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.eluder.coveralls</groupId>
-                        <artifactId>coveralls-maven-plugin</artifactId>
-                        <version>4.3.0</version>
                     </plugin>
                 </plugins>
             </build>

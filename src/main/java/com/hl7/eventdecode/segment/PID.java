@@ -1,6 +1,6 @@
 package com.hl7.eventdecode.segment;
 
-import ca.uhn.hl7v2.util.Terser;
+import com.hl7.eventdecode.deal.*;
 import com.hl7.in_mysql.enuitity.Patient;
 
 /**
@@ -58,29 +58,30 @@ public class PID {
     public Patient getPatient(){
         Patient patient = new Patient();
         try{
-            patient.patient_id = terser.get("/PID-2");
+            patient.patient_id = terser.get("PID-2");
+//            System.out.println(patient.patient_id);
 
-            String patient_name = terser.get("/PID-5-2");
-            patient.patient_name = (patient_name == null ? terser.get("/PID-5") : patient_name);
+            String patient_name = terser.get("PID-5-2");
+            patient.patient_name = (patient_name == null ? terser.get("PID-5") : patient_name);
 
-            patient.sex = terser.get("/PID-8");
+            patient.sex = terser.get("PID-8");
 
-            String home_phone = terser.get("/PID-13");
+            String home_phone = terser.get("PID-13");
             patient.patient_home_phone = (home_phone == null ? null : home_phone);
 
-            String work_phone = terser.get("/PID-14");
+            String work_phone = terser.get("PID-14");
             patient.patient_work_phone = (work_phone == null ? null : work_phone);
 
-            String address = terser.get("/PID-11");
+            String address = terser.get("PID-11");
             patient.patient_address = (address == null ? null : address);
 
-            patient.patient_marry = terser.get("/PID-16");
-            patient.birthday = terser.get("/PID-7");
-            patient.religion = terser.get("/PID-17");
-            patient.nation = terser.get("/PID-22");
-            patient.country = terser.get("/PID-28");
-            patient.id_card_number = terser.get("/PID-19");
-            patient.authority = (terser.get("/PID-4-5") == null ? 1 : terser.get("/PID-4-5").charAt(0) - '0' + 1);
+            patient.patient_marry = terser.get("PID-16");
+            patient.birthday = terser.get("PID-7");
+            patient.religion = terser.get("PID-17");
+            patient.nation = terser.get("PID-22");
+            patient.country = terser.get("PID-28");
+            patient.id_card_number = terser.get("PID-19");
+            patient.authority = (terser.get("PID-4-5") == null ? 1 : terser.get("PID-4-5").charAt(0) - '0' + 1);
             patient.remark = null;
 
         }catch (Exception e){
@@ -91,7 +92,7 @@ public class PID {
 
     public String getHospital(){
         try{
-            return terser.get("/PID-34");
+            return terser.get("PID-34");
         }catch (Exception e){
             return null;
         }
@@ -100,29 +101,29 @@ public class PID {
     public Patient getPatient(int i){
         Patient patient = new Patient();
         try{
-            patient.patient_id = terser.get("/PID("+ i + ")-2");
+            patient.patient_id = terser.get("PID("+ i + ")-2");
 
-            String patient_name = terser.get("/PID(" + i + ")-5-2");
-            patient.patient_name = (patient_name == null ? terser.get("/PID(" + i + ")-5") : patient_name);
+            String patient_name = terser.get("PID(" + i + ")-5-2");
+            patient.patient_name = (patient_name == null ? terser.get("PID(" + i + ")-5") : patient_name);
 
-            patient.sex = terser.get("/PID(" + i + ")-8");
+            patient.sex = terser.get("PID(" + i + ")-8");
 
-            String home_phone = terser.get("/PID(" + i + ")-13");
+            String home_phone = terser.get("PID(" + i + ")-13");
             patient.patient_home_phone = (home_phone == null ? null : home_phone);
 
-            String work_phone = terser.get("/PID(" + i + ")-14");
+            String work_phone = terser.get("PID(" + i + ")-14");
             patient.patient_work_phone = (work_phone == null ? null : work_phone);
 
-            String address = terser.get("/PID(" + i + ")-11");
+            String address = terser.get("PID(" + i + ")-11");
             patient.patient_address = (address == null ? null : address);
 
-            patient.patient_marry = terser.get("/PID(" + i + ")-16");
-            patient.birthday = terser.get("/PID(" + i + ")-7");
-            patient.religion = terser.get("/PID(" + i + ")-17");
-            patient.nation = terser.get("/PID(" + i + ")-22");
-            patient.country = terser.get("/PID(" + i + ")-28");
-            patient.id_card_number = terser.get("/PID(" + i + ")-19");
-            patient.authority = (terser.get("/PID(" + i + ")-4-5") == null ? 1 : terser.get("/PID(" + i + ")-4-5").charAt(0) - '0' + 1);
+            patient.patient_marry = terser.get("PID(" + i + ")-16");
+            patient.birthday = terser.get("PID(" + i + ")-7");
+            patient.religion = terser.get("PID(" + i + ")-17");
+            patient.nation = terser.get("PID(" + i + ")-22");
+            patient.country = terser.get("PID(" + i + ")-28");
+            patient.id_card_number = terser.get("PID(" + i + ")-19");
+            patient.authority = (terser.get("PID(" + i + ")-4-5") == null ? 1 : terser.get("PID(" + i + ")-4-5").charAt(0) - '0' + 1);
             patient.remark = null;
 
         }catch (Exception e){

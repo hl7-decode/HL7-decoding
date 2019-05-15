@@ -52,8 +52,9 @@
       </SplitPane>
       <Pane prefHeight="51.0" prefWidth="787.0" GridPane.rowIndex="1">
          <children>
-            <Button fx:id="ImportFile" layoutX="81.0" layoutY="11.0" mnemonicParsing="false" onAction="#setImportFile" text="导入HL7数据" />
+            <Button fx:id="ImportFile" layoutX="339.0" layoutY="11.0" mnemonicParsing="false" onAction="#setImportFile" text="导入HL7数据" />
             <Button fx:id="Parse" layoutX="723.0" layoutY="11.0" mnemonicParsing="false" onAction="#setParse" text="解析" />
+            <Button fx:id="connect" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onAction="#startListen" text="开始捕获" />
          </children></Pane>
    </children>
 </GridPane>

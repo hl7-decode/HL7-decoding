@@ -1,4 +1,4 @@
-package app.test.exception;
+package com.hl7.eventdecode.deal.exception;
 
 /**
  * ArrayNullPointException

@@ -1,15 +1,14 @@
-package com.example.hl7server.dao;
+package com.hl7.in_mysql.mapper;
 
 
-import com.example.hl7server.enuitity.PatientHospital;
-import org.apache.ibatis.annotations.Mapper;
+import com.hl7.in_mysql.enuitity.PatientHospital;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
-@Mapper
-public interface PatientHospitalDao {
+public interface PatientHospitalMapper {
 
     @Select("select * from `patient_hospital` where `admission_id` = #{admission_id};")
     PatientHospital selectById(String admission_id);
@@ -33,5 +32,25 @@ public interface PatientHospitalDao {
     @Update("update `patient_hospital` set `remark` = #{patient_hospital.remark}" +
             " where `admission_id` = #{patient_hospital.admission_id};")
     int updateRemark(PatientHospital patient_hospital);
+
+    @Update("update `patient_hospital` set " +
+        "`doctor_advice_id` = #{patientHospital.doctor_advice_id}, `patient_location` = #{patientHospital.patient_location}, " +
+        "`attending_doctor` = #{patientHospital.attending_doctor}," +
+        "`referring_doctor` = #{patientHospital.referring_doctor}, `consult_doctor` = #{patientHospital.consult_doctor}, " +
+        "`admit_source` = #{patientHospital.admit_source}, " +
+        "`admitting_doctor` = #{patientHospital.admitting_doctor}, `discharged_to_location` = #{patientHospital.discharged_to_location}," +
+        "`bed_status` = #{patientHospital.bed_status}, `admit_time` = #{patientHospital.admit_time}, " +
+        "`out_time` = #{patientHospital.out_time}, `remark` = #{patientHospital.remark}," +
+        "`hospital` = #{patientHospital.hospital} " +
+        "where `admission_id` = #{patientHospital.admission_id};")
+    int update(PatientHospital patientHospital);
+
+    @Insert("insert into `patient_hospital` values(#{patientHospital.admission_id}, #{patientHospital.patient_id}," +
+        "#{patientHospital.doctor_advice_id}, #{patientHospital.patient_location}, #{patientHospital.attending_doctor}," +
+        "#{patientHospital.referring_doctor}, #{patientHospital.consult_doctor}, #{patientHospital.consult_doctor}," +
+        "#{patientHospital.admit_source}, #{patientHospital.admitting_doctor}, #{patientHospital.discharged_to_location}," +
+        "#{patientHospital.bed_status}, #{patientHospital.admit_time}, #{patientHospital.out_time}, #{patientHospital.remark}," +
+        "#{patientHospital.hospital});")
+    int insert(PatientHospital patientHospital);
 
 }

@@ -1,9 +1,7 @@
 package com.hl7.manage;
 
-public interface SqlOpreation<T> {
+public interface SqlOperation<T> {
 
     void operation(T knife);
-
-    Class getClass(T knife);
 
 }

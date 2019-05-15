@@ -1,4 +1,7 @@
-package app.test.struct;
+package com.hl7.eventdecode.deal.struct;
+
+import com.hl7.eventdecode.deal.exception.ArrayNullPointException;
+import com.hl7.eventdecode.deal.exception.ProgramQuestion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,14 +39,16 @@ public class Component {
         return subComponents.get(number).get();
     }
 
-    public String get(String target){
+    public String get(String target) throws ProgramQuestion, ArrayNullPointException {
         int firstPoint = target.indexOf('-');
         if(firstPoint != -1){
             //抛出异常
+            throw new ProgramQuestion();
         }
         int number = Integer.parseInt(target);
         if(number > subComponents.size() || number < 0){
             //异常
+            throw new ArrayNullPointException();
         }
         return this.subComponents.get(number).get();
     }

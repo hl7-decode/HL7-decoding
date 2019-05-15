@@ -1,6 +1,6 @@
 package com.hl7.eventdecode.event;
 
-import ca.uhn.hl7v2.util.Terser;
+import com.hl7.eventdecode.deal.*;
 import com.hl7.eventdecode.segment.*;
 import com.hl7.in_mysql.enuitity.*;
 import com.hl7.in_mysql.util.FormatTime;

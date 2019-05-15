@@ -1,4 +1,4 @@
-package app.test.decollate;
+package com.hl7.eventdecode.deal.decollate;
 
 public class Lexer {
     String message = "";

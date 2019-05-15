@@ -1,10 +1,6 @@
 package com.hl7.eventdecode.segment;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import ca.uhn.hl7v2.HL7Exception;
-import ca.uhn.hl7v2.util.Terser;
+import com.hl7.eventdecode.deal.*;
 
 /**
  * 对MSH段的信息进行处理 MSH-1 字段分隔符 MSH-2 代码字符 MSH-3 发送应用程序（3.1 发送应用程序简称） MSH-4 发送设备
@@ -28,8 +24,10 @@ public class MSH {
         {
             result=null;
             try {
-                result = terser.get("/MSH-9-" + i);
-            } catch (HL7Exception e) {
+//                System.out.println(terser.get("/MSH-2") + "\n" + terser.get("PID-1"));
+                result = terser.get("MSH-9-" + i);
+//                System.out.println(result);
+            } catch (Exception e) {
                 // TODO Auto-generated catch block
                 break;
             }

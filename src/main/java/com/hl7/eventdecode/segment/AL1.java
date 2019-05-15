@@ -1,8 +1,7 @@
 package com.hl7.eventdecode.segment;
 
-import ca.uhn.hl7v2.util.Terser;
+import com.hl7.eventdecode.deal.*;
 import com.hl7.in_mysql.enuitity.Allergy;
-import com.hl7.in_mysql.util.Json;
 
 /**
  * AL1 患者过敏信息字段解析
@@ -23,12 +22,10 @@ public class AL1 {
     public Allergy getAllergy(){
         Allergy allergy = new Allergy();
         try{
-            allergy.allergy_id = null;
-            allergy.patient_id = null;
-            allergy.allergy_reaction_code = terser.get("/AL1-5");
-            allergy.allergy_type_code = terser.get("/AL1-2");
+            allergy.allergy_reaction_code = terser.get("AL1-5");
+            allergy.allergy_type_code = terser.get("AL1-2");
             allergy.allergy_severity_code = terser.get("Al1-4");
-            String allergyMessage = terser.get("/AL1-3-3");
+            String allergyMessage = terser.get("AL1-3-3");
             allergy.allergy_type_message = (allergyMessage == null ? terser.get("AL1-3") : allergyMessage);
             allergy.remark = null;
         }catch (Exception e){
@@ -43,10 +40,10 @@ public class AL1 {
         try{
             allergy.allergy_id = null;
             allergy.patient_id = null;
-            allergy.allergy_reaction_code = terser.get("/AL1(" + i +")-5");
-            allergy.allergy_type_code = terser.get("/AL1(" + i + ")-2");
+            allergy.allergy_reaction_code = terser.get("AL1(" + i +")-5");
+            allergy.allergy_type_code = terser.get("AL1(" + i + ")-2");
             allergy.allergy_severity_code = terser.get("Al1(" + i + ")-4");
-            String allergyMessage = terser.get("/AL1(" + i + ")-3-3");
+            String allergyMessage = terser.get("AL1(" + i + ")-3-3");
             allergy.allergy_type_message = (allergyMessage == null ? terser.get("AL1(" + i + ")-3") : allergyMessage);
             allergy.remark = null;
         }catch (Exception e){

@@ -1,6 +1,6 @@
 package com.hl7.eventdecode.segment;
 
-import ca.uhn.hl7v2.util.Terser;
+import com.hl7.eventdecode.deal.*;
 import com.hl7.in_mysql.enuitity.Family;
 import com.hl7.in_mysql.util.FormatTime;
 
@@ -28,21 +28,21 @@ public class NK1 {
     public Family getFamily(){
         Family family = new Family();
         try{
-            String family_id = terser.get("/NK1-3-1");
+            String family_id = terser.get("NK1-3-1");
             family.family_id = (family_id == null ? null : family_id);
             family.patient_id = null;
-            String family_name = terser.get("/NK1-30-2");
-            family.family_name = (family_name == null ? terser.get("/NK1-30") : family_name);
+            String family_name = terser.get("NK1-30-2");
+            family.family_name = (family_name == null ? terser.get("NK1-30") : family_name);
 
-            String relation = terser.get("/NK1-3-2");
-            family.family_relation = (relation == null ? terser.get("/NK1-3") : relation);
+            String relation = terser.get("NK1-3-2");
+            family.family_relation = (relation == null ? terser.get("NK1-3") : relation);
 
-            String phone = terser.get("/NK1-31");
+            String phone = terser.get("NK1-31");
             family.family_phone = (phone == null ? null : phone);
 
-            family.sex = terser.get("/NK1-15");
+            family.sex = terser.get("NK1-15");
 
-            String address = terser.get("/NK1-32");
+            String address = terser.get("NK1-32");
             family.family_address = dealAddress(address);
 
             family.last_update_time = FormatTime.formatTime(new Date());
@@ -63,21 +63,21 @@ public class NK1 {
     public Family getFamily(int i){
         Family family = new Family();
         try{
-            String family_id = terser.get("/NK1("+ i +")-3-1");
+            String family_id = terser.get("NK1("+ i +")-3-1");
             family.family_id = (family_id == null ? null : family_id);
             family.patient_id = null;
-            String family_name = terser.get("/NK1(" + i + ")-30-2");
-            family.family_name = (family_name == null ? terser.get("/NK1("+ i + ")-30") : family_name);
+            String family_name = terser.get("NK1(" + i + ")-30-2");
+            family.family_name = (family_name == null ? terser.get("NK1("+ i + ")-30") : family_name);
 
-            String relation = terser.get("/NK1(" + i + ")-3-2");
-            family.family_relation = (relation == null ? terser.get("/NK1(" + i + ")-3") : relation);
+            String relation = terser.get("NK1(" + i + ")-3-2");
+            family.family_relation = (relation == null ? terser.get("NK1(" + i + ")-3") : relation);
 
-            String phone = terser.get("/NK1(" + i + ")-31");
+            String phone = terser.get("NK1(" + i + ")-31");
             family.family_phone = (phone == null ? null : phone);
 
-            family.sex = terser.get("/NK1(" + i + ")-15");
+            family.sex = terser.get("NK1(" + i + ")-15");
 
-            String address = terser.get("/NK1(" + i + ")-32");
+            String address = terser.get("NK1(" + i + ")-32");
             family.family_address = dealAddress(address);
 
             family.last_update_time = FormatTime.formatTime(new Date());

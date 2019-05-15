@@ -1,4 +1,4 @@
-package com.hl7.eventdecode.deal;
+package com.hl7.eventdecode.old_version;
 
 
 import java.util.HashMap;

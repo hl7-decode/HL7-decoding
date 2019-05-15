@@ -1,15 +1,13 @@
-package com.example.hl7server.dao;
+package com.hl7.in_mysql.mapper;
 
 
-import com.example.hl7server.enuitity.Allergy;
-import org.apache.ibatis.annotations.Mapper;
+import com.hl7.in_mysql.enuitity.Allergy;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
-@Mapper
-public interface AllergyDao {
+public interface AllergyMapper {
 
     @Select("select * from `allergy`;")
     List<Allergy> selectBy();
@@ -26,6 +24,12 @@ public interface AllergyDao {
             "`allergy_reaction_code` = #{allergy.allergy_reaction_code}," +
             "`remark` = #{allergy.remark};")
     int updateMessage(@Param("allergy") Allergy allergy);
+
+    @Update("update `allergy` set `allergy.allergy_id` = #{allergy.allergy_id}," +
+        "`allergy_type_code` = #{allergy.allergy_type_code}," +
+        "allergy_type_message` = #{allergy.allergy_type_message}, `allergy_severity_code` = #{allergy.allergy_severity_code}," +
+        "`allergy_reaction_code` = #{allergy.allergy_reaction_code}, `remark` = #{allergy.remark} where `patient_id` = #{allergy.patient_id};")
+    int updateByPatient(@Param("allergy") Allergy allergy);
 
     @Delete("delete from `allergy` where `allergy_id` = #{allergy_id};")
     int deleteAllergy(String allergy_id);

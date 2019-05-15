@@ -1,12 +1,16 @@
-package app.test;
+package com.hl7.eventdecode.deal;
+
+
+import com.hl7.eventdecode.deal.decollate.Lexer;
+import com.hl7.eventdecode.deal.exception.ArrayNullPointException;
+import com.hl7.eventdecode.deal.exception.HashNullPointException;
+import com.hl7.eventdecode.deal.exception.ProgramQuestion;
+import com.hl7.eventdecode.deal.exception.WrongSearchKey;
+import com.hl7.eventdecode.deal.struct.Field;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-
-import app.test.decollate.Lexer;
-import app.test.struct.Field;
 
 /**
  * Terser
@@ -195,7 +199,7 @@ public class Terser {
         }
     }
 
-    public String get(String target){
+    public String get(String target) throws HashNullPointException, WrongSearchKey, ArrayNullPointException, ProgramQuestion {
         int firstPoint = target.indexOf('-');
         if(firstPoint != -1){
             String targets = target.substring(0, firstPoint);
@@ -208,8 +212,9 @@ public class Terser {
                     list = this.hashMap.get(targets+"(0)");
                 } else {
                     //抛出异常
-                    System.out.println("哈希表中不存在相关键值");
-                    return null;
+                    throw new HashNullPointException();
+//                    System.out.println("哈希表中不存在相关键值");
+//                    return null;
                 }
                 target = target.substring(firstPoint + 1);
                 int thirdPoint = target.indexOf('-');
@@ -235,14 +240,15 @@ public class Terser {
             }
             
         } else {
-            System.out.println("error");
-            return null;
+//            System.out.println("error");
+//            return null;
+            throw new WrongSearchKey();
         }
         return null;
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         String message = "MSH|^~\\&|HIS|RIH|EKG|EKG|199904140038||ADT^A01||P|2.2\r"
                 + "PID|0001|00009874|00001122|A00977|SMITH^JOHN^M|MOM|19581119|F|NOTREAL^LINDA^M|C|564 SPRING ST^^NEEDHAM^MA^02494^US|0002|(818)565-1551|(425)828-3344|E|S|C|0000444444|252-00-4414||||SA|||SA||||NONE|V1|0001|I|D.ER^50A^M110^01|ER|P00055|11B^M011^02|070615^BATMAN^GEORGE^L|555888^NOTREAL^BOB^K^DR^MD|777889^NOTREAL^SAM^T^DR^MD^PHD|ER|D.WT^1A^M010^01|||ER|AMB|02|070615^NOTREAL^BILL^L|ER|000001916994|D||||||||||||||||GDD|WA|NORM|02|O|02|E.IN^02D^M090^01|E.IN^01D^M080^01|199904072124|199904101200|199904101200||||5555112333|||666097^NOTREAL^MANNY^P\r"
                 + "NK1|0222555|NOTREAL~JAMES&R|FA|STREET^OTHER STREET^CITY^ST^55566|(222)111-3333|(888)999-0000|||||||ORGANIZATION\r"

@@ -1,4 +1,4 @@
-package hl7-decoding;
+package com.hl7;
 
 /**
  * Hello world!

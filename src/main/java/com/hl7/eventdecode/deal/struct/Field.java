@@ -1,4 +1,8 @@
-package app.test.struct;
+package com.hl7.eventdecode.deal.struct;
+
+import com.hl7.eventdecode.deal.exception.ArrayNullPointException;
+import com.hl7.eventdecode.deal.exception.ProgramQuestion;
+import com.hl7.eventdecode.deal.exception.WrongSearchKey;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -89,19 +93,21 @@ public class Field {
         }
     }
 
-    public String get(String target){
+    public String get(String target) throws WrongSearchKey, ArrayNullPointException, ProgramQuestion {
         String fieldResult = this.fieldString.get(0);
         List<Component> list;
         if(target.length() != 0 && target.charAt(0) == '('){
             int firstPoint = target.indexOf(')');
             if(firstPoint == -1){
-                //抛出异常
-                System.out.print("输入的访问地址有错，请检查");
+//                //抛出异常
+//                System.out.print("输入的访问地址有错，请检查");
+                throw new WrongSearchKey();
             }
             int number = Integer.parseInt(target.substring(1, firstPoint)) + 1;
             if(number <= 0 || number > this.components.size()){
                 //抛出异常
-                System.out.print("您的访问地址超出范围，请检查");
+//                System.out.print("您的访问地址超出范围，请检查");
+                throw new ArrayNullPointException();
             }
 
             fieldResult = this.fieldString.get(number);
@@ -141,8 +147,9 @@ public class Field {
             return null;
         } else if (componentPlace < 0) {
             //抛出异常
-            System.out.print("您输入的组件范围值不正确");
-            return null;
+            throw new WrongSearchKey("组件");
+//            System.out.print("您输入的组件范围值不正确");
+//            return null;
         } else {
             if(target.length() == 0){
                 return list.get(componentPlace).componentString;

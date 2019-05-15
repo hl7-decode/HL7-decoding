@@ -1,6 +1,6 @@
 package com.hl7.eventdecode.segment;
 
-import ca.uhn.hl7v2.util.Terser;
+import com.hl7.eventdecode.deal.*;
 import com.hl7.in_mysql.enuitity.OutPatient;
 
 /**
@@ -25,7 +25,7 @@ public class DG1 {
     public OutPatient getOutPatient(OutPatient outPatient){
 
         try{
-            outPatient.doctor_name = terser.get("/DG1-16");
+            outPatient.doctor_name = terser.get("DG1-16");
             outPatient.doctor_diagnosis = terser.get("DG1-4");
         }catch (Exception e){
             return null;
@@ -36,7 +36,7 @@ public class DG1 {
     public OutPatient getOutPatient(OutPatient outPatient, int i){
 
         try{
-            outPatient.doctor_name = terser.get("/DG1(" + i + ")-16");
+            outPatient.doctor_name = terser.get("DG1(" + i + ")-16");
             outPatient.doctor_diagnosis = terser.get("DG1(" + i + ")-4");
         }catch (Exception e){
             return null;

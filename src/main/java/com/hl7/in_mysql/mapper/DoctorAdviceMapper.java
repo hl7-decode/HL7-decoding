@@ -1,14 +1,12 @@
-package com.example.hl7server.dao;
+package com.hl7.in_mysql.mapper;
 
 
-import com.example.hl7server.enuitity.DoctorAdvice;
-import org.apache.ibatis.annotations.Mapper;
+import com.hl7.in_mysql.enuitity.DoctorAdvice;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
-@Mapper
-public interface DoctorAdviceDao {
+public interface DoctorAdviceMapper {
 
     @Select("select * from `doctor_advice`;")
     List<DoctorAdvice> selectAll();
@@ -22,5 +20,17 @@ public interface DoctorAdviceDao {
     @Update("update `doctor_advice` set `remark` = #{advice.remark}" +
             " where `doctor_advice_id` = #{advice.doctor_advice_id};")
     int updateRemark(@Param("advice") DoctorAdvice advice);
+
+    @Update("update `doctor_advice` set `patient_status` = #{advice.patient_status}," +
+        "`doctor_advice` = #{advice.doctor_advice}, `advice_time` = #{advice.advice_time}," +
+        "`doctor_name` = #{advice.doctor_name}, `remark` = #{advice.remark}" +
+        " where `doctor_advice_id` = #{advice.doctor_advice_id};")
+    int update(@Param("advice") DoctorAdvice advice);
+
+    @Insert("insert into `doctor_advice` values(" +
+        "#{doctorAdvice.doctor_advice_id}, #{doctorAdvice.patient_status}, " +
+        "#{doctorAdvice.doctor_advice}, #{doctorAdvice.advice_time}, " +
+        "#{doctorAdvice.doctor_name},#{doctorAdvice.remark});")
+    int insert(DoctorAdvice doctorAdvice);
 
 }

@@ -1,12 +1,11 @@
-package com.example.hl7server.dao;
+package com.hl7.in_mysql.mapper;
 
-import com.example.hl7server.enuitity.Family;
+import com.hl7.in_mysql.enuitity.Family;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
-@Mapper
-public interface FamilyDao {
+public interface FamilyMapper {
 
     @Select("select * from `family`;")
     List<Family> selectAll();

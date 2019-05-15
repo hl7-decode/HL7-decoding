@@ -1,10 +1,9 @@
 package com.hl7.eventdecode.segment;
 
-import ca.uhn.hl7v2.util.Terser;
+import com.hl7.eventdecode.deal.*;
 import com.hl7.in_mysql.enuitity.DoctorAdvice;
 import com.hl7.in_mysql.enuitity.OutPatient;
 
-import javax.print.Doc;
 
 /**
  * NTE字段信息处理
@@ -29,7 +28,7 @@ public class NTE {
     public OutPatient getOutPatient(OutPatient outPatient){
 
         try{
-            outPatient.patient_read_me = terser.get("/NTE-4");
+            outPatient.patient_read_me = terser.get("NTE-4");
         }catch (Exception e){
             return null;
         }
@@ -39,7 +38,7 @@ public class NTE {
     public OutPatient getOutPatient(OutPatient outPatient, int i){
 
         try{
-            outPatient.patient_read_me = terser.get("/NTE("+ i + ")-4");
+            outPatient.patient_read_me = terser.get("NTE("+ i + ")-4");
         }catch (Exception e){
             return null;
         }
@@ -49,9 +48,9 @@ public class NTE {
 
     public DoctorAdvice getDoctorAdvice(DoctorAdvice doctorAdvice){
         try{
-            doctorAdvice.doctor_advice = terser.get("/NTE-5");
-            doctorAdvice.advice_time = terser.get("/NTE-7");
-            doctorAdvice.doctor_name = terser.get("/NTE-6");
+            doctorAdvice.doctor_advice = terser.get("NTE-5");
+            doctorAdvice.advice_time = terser.get("NTE-7");
+            doctorAdvice.doctor_name = terser.get("NTE-6");
         }catch (Exception e){
             return null;
         }
@@ -60,9 +59,9 @@ public class NTE {
 
     public DoctorAdvice getDoctorAdvice(DoctorAdvice doctorAdvice, int i){
         try{
-            doctorAdvice.doctor_advice = terser.get("/NTE("+ i + ")-5");
-            doctorAdvice.advice_time = terser.get("/NTE("+ i + ")-7");
-            doctorAdvice.doctor_name = terser.get("/NTE(" + i + ")-6");
+            doctorAdvice.doctor_advice = terser.get("NTE("+ i + ")-5");
+            doctorAdvice.advice_time = terser.get("NTE("+ i + ")-7");
+            doctorAdvice.doctor_name = terser.get("NTE(" + i + ")-6");
         }catch (Exception e){
             return null;
         }

@@ -10,7 +10,6 @@ import ca.uhn.hl7v2.parser.PipeParser;
 import ca.uhn.hl7v2.util.Terser;
 import com.hl7.eventdecode.event.*;
 import com.hl7.eventdecode.segment.MSH;
-import com.sun.xml.internal.bind.marshaller.MinimumEscapeHandler;
 
 /**
  * 拟先筛选出事件
@@ -48,18 +47,18 @@ public class MessageEvent{
     }
 
     public String createADT(){
-        String type = new MSH(this.terser).getEventType();
-        if(type.equals("A01")){
-            return new A01(this.terser).GetMessage();
-        }else if (type.equals("A03")){
-            return new A03(this.terser).getMessage();
-        }else if (type.equals("A06")){
-            return new A06(this.terser).getMessage();
-        }else if (type.equals("A07")){
-            return new A07(this.terser).getMessage();
-        }else if (type.equals("A08")){
-            return new A08(this.terser).getMessage();
-        }
+//        String type = new MSH(this.terser).getEventType();
+//        if(type.equals("A01")){
+//            return new A01(this.terser).GetMessage();
+//        }else if (type.equals("A03")){
+//            return new A03(this.terser).getMessage();
+//        }else if (type.equals("A06")){
+//            return new A06(this.terser).getMessage();
+//        }else if (type.equals("A07")){
+//            return new A07(this.terser).getMessage();
+//        }else if (type.equals("A08")){
+//            return new A08(this.terser).getMessage();
+//        }
         return "解析错误";
     }
 

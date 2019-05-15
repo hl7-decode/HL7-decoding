@@ -1,6 +1,6 @@
 package com.hl7.eventdecode.segment;
 
-import ca.uhn.hl7v2.util.Terser;
+import com.hl7.eventdecode.deal.*;
 import com.hl7.in_mysql.enuitity.PatientHospital;
 
 /**
@@ -51,39 +51,40 @@ public class PV1 {
         PatientHospital patientHospital = new PatientHospital();
         try{
             patientHospital.admission_id = null;
-            patientHospital.admit_source = terser.get("/PV1-14");
+            patientHospital.admit_source = terser.get("PV1-14");
 
-            String attending_doctor = terser.get("/PV1-7-2");
-            patientHospital.attending_doctor = (attending_doctor == null ? terser.get("/PV1-7") : attending_doctor);
+            String attending_doctor = terser.get("PV1-7-2");
+            patientHospital.attending_doctor = (attending_doctor == null ? terser.get("PV1-7") : attending_doctor);
 
-            String consult_doctor = terser.get("/PV1-9-2");
-            patientHospital.consult_doctor = (consult_doctor == null ? terser.get("/PV1-9") : consult_doctor);
+            String consult_doctor = terser.get("PV1-9-2");
+            patientHospital.consult_doctor = (consult_doctor == null ? terser.get("PV1-9") : consult_doctor);
 
-            String admitting_doctor = terser.get("/PV1-17-2");
-            patientHospital.admitting_doctor = (admitting_doctor == null ? terser.get("/PV1-17") : admitting_doctor);
+            String admitting_doctor = terser.get("PV1-17-2");
+            patientHospital.admitting_doctor = (admitting_doctor == null ? terser.get("PV1-17") : admitting_doctor);
 
-            String location = terser.get("/PV1-3");
+            String location = terser.get("PV1-3");
             patientHospital.patient_location = location;
 
-            String referring_doctor = terser.get("/PV1-8-2");
-            patientHospital.referring_doctor = (referring_doctor == null ? terser.get("/PV1-8") : referring_doctor);
+            String referring_doctor = terser.get("PV1-8-2");
+            patientHospital.referring_doctor = (referring_doctor == null ? terser.get("PV1-8") : referring_doctor);
 
-            String admit_time = terser.get("/PV1-44");
+            String admit_time = terser.get("PV1-44");
             patientHospital.admit_time = admit_time;
 
-            String out_time = terser.get("/PV1-45");
+            String out_time = terser.get("PV1-45");
             patientHospital.out_time = out_time;
 
-            String discharged_to_location = terser.get("/PV1-36");
+            String discharged_to_location = terser.get("PV1-36");
             patientHospital.discharged_to_location = discharged_to_location;
 
-            String bed_status = terser.get("/PV1-4");
+            String bed_status = terser.get("PV1-4");
             patientHospital.bed_status = getKind(bed_status);
 
             patientHospital.hospital = null;
 
 
         }catch (Exception e){
+            e.printStackTrace();
             return null;
         }
 
@@ -118,33 +119,33 @@ public class PV1 {
         PatientHospital patientHospital = new PatientHospital();
         try{
             patientHospital.admission_id = null;
-            patientHospital.admit_source = terser.get("/PV1(" + i + ")-14");
+            patientHospital.admit_source = terser.get("PV1(" + i + ")-14");
 
-            String attending_doctor = terser.get("/PV1(" + i + ")-7-2");
-            patientHospital.attending_doctor = (attending_doctor == null ? terser.get("/PV1(" + i + ")-7") : attending_doctor);
+            String attending_doctor = terser.get("PV1(" + i + ")-7-2");
+            patientHospital.attending_doctor = (attending_doctor == null ? terser.get("PV1(" + i + ")-7") : attending_doctor);
 
-            String consult_doctor = terser.get("/PV1(" + i + ")-9-2");
-            patientHospital.consult_doctor = (consult_doctor == null ? terser.get("/PV1(" + i + ")-9") : consult_doctor);
+            String consult_doctor = terser.get("PV1(" + i + ")-9-2");
+            patientHospital.consult_doctor = (consult_doctor == null ? terser.get("PV1(" + i + ")-9") : consult_doctor);
 
-            String admitting_doctor = terser.get("/PV1(" + i + ")-17-2");
-            patientHospital.admitting_doctor = (admitting_doctor == null ? terser.get("/PV1(" + i + ")-17") : admitting_doctor);
+            String admitting_doctor = terser.get("PV1(" + i + ")-17-2");
+            patientHospital.admitting_doctor = (admitting_doctor == null ? terser.get("PV1(" + i + ")-17") : admitting_doctor);
 
-            String location = terser.get("/PV1(" + i + ")-3");
+            String location = terser.get("PV1(" + i + ")-3");
             patientHospital.patient_location = location;
 
-            String referring_doctor = terser.get("/PV1(" + i + ")-8-2");
-            patientHospital.referring_doctor = (referring_doctor == null ? terser.get("/PV1(" + i +")-8") : referring_doctor);
+            String referring_doctor = terser.get("PV1(" + i + ")-8-2");
+            patientHospital.referring_doctor = (referring_doctor == null ? terser.get("PV1(" + i +")-8") : referring_doctor);
 
-            String admit_time = terser.get("/PV1(" + i + ")-44");
+            String admit_time = terser.get("PV1(" + i + ")-44");
             patientHospital.admit_time = admit_time;
 
-            String out_time = terser.get("/PV1(" + i + ")-45");
+            String out_time = terser.get("PV1(" + i + ")-45");
             patientHospital.out_time = out_time;
 
-            String discharged_to_location = terser.get("/PV1(" + i + ")-36");
+            String discharged_to_location = terser.get("PV1(" + i + ")-36");
             patientHospital.discharged_to_location = discharged_to_location;
 
-            String bed_status = terser.get("/PV1(" + i + ")-4");
+            String bed_status = terser.get("PV1(" + i + ")-4");
             patientHospital.bed_status = getKind(bed_status);
 
             patientHospital.hospital = null;

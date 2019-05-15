@@ -1,16 +1,15 @@
-package com.example.hl7server.dao;
+package com.hl7.in_mysql.mapper;
 
 
-import com.example.hl7server.enuitity.OutPatient;
-import org.apache.ibatis.annotations.Mapper;
+import com.hl7.in_mysql.enuitity.OutPatient;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
-@Mapper
-public interface OutPatientDao {
+public interface OutPatientMapper {
 
     @Select("select * from `out_patient` where `diagnosis_id` = #{diagnosis_id};")
     OutPatient selectById(String diagnosis_id);
@@ -34,4 +33,19 @@ public interface OutPatientDao {
 
     @Update("update `out_patient` set `remark` = #{out_patient.remark};")
     int updateRemark(@Param("out_patient") OutPatient out_patient);
+
+
+    @Update("update `out_patient` set" +
+        "`doctor_advice_id` = #{outPatient.doctor_advice_id}, `patient_read_me` = #{outPatient.patient_read_me}" +
+        "`doctor_diagnosis` = #{outPatient.doctor_diagnosis}, " +
+        "`doctor_name` = #{outPatient.doctor_name}, `hospital_name` = #{outPatient.hospital_name}," +
+        "`remark` = #{outPatient.remark}" +
+        "where `diagnosis_id` = #{outPatient.diagnosis_id};")
+    int update(OutPatient outPatient);
+
+    @Insert("insert into `out_patient` values(#{outPatient.diagnosis_id}, " +
+        "#{outPatient.patient_id},#{outPatient.doctor_advice_id}, #{outPatient.patient_read_me}" +
+        "#{outPatient.doctor_diagnosis}, #{outPatient.doctor_name}, #{outPatient.hospital_name}," +
+        " #{outPatient.remark});")
+    int insert(OutPatient outPatient);
 }

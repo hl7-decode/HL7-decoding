@@ -1,6 +1,6 @@
 package com.hl7.eventdecode.segment;
 
-import ca.uhn.hl7v2.util.Terser;
+import com.hl7.eventdecode.deal.*;
 import com.hl7.in_mysql.enuitity.Disability;
 
 /**
@@ -21,9 +21,9 @@ public class DB1 {
     public Disability getDisability(){
         Disability disability = new Disability();
         try{
-            disability.disability_message = terser.get("/DB1-4");
-            disability.disability_start_time = terser.get("/DB1-5");
-            disability.disability_end_time = terser.get("/DB1-6");
+            disability.disability_message = terser.get("DB1-4");
+            disability.disability_start_time = terser.get("DB1-5");
+            disability.disability_end_time = terser.get("DB1-6");
         }catch (Exception e){
             return null;
         }
@@ -34,9 +34,9 @@ public class DB1 {
     public Disability getDisability(int i){
         Disability disability = new Disability();
         try{
-            disability.disability_message = terser.get("/DB1(" + i + ")-4");
-            disability.disability_start_time = terser.get("/DB1(" + i + ")-5");
-            disability.disability_end_time = terser.get("/DB1(" + i + ")-6");
+            disability.disability_message = terser.get("DB1(" + i + ")-4");
+            disability.disability_start_time = terser.get("DB1(" + i + ")-5");
+            disability.disability_end_time = terser.get("DB1(" + i + ")-6");
         }catch (Exception e){
             return null;
         }

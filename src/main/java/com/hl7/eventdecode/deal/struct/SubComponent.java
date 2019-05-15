@@ -1,18 +1,18 @@
-package app.test.struct;
+package com.hl7.eventdecode.deal.struct;
 
 /**
  * SubComponent
  */
 public class SubComponent {
 
-    public String subComponenString = "";
+    public String subComponentString = "";
 
     public SubComponent(String string){
-        this.subComponenString = string;
+        this.subComponentString = string;
     }
 
     public String get(){
-        return subComponenString;
+        return subComponentString;
     }
     
 }

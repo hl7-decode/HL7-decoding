@@ -10,6 +10,9 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.FixedLengthFrameDecoder;
+import io.netty.handler.codec.LineBasedFrameDecoder;
+import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
@@ -37,22 +40,23 @@ public class MessageGet {
     private void start(int port) {
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workGroup = new NioEventLoopGroup();
-        final MessageHandler messageHandler = new MessageHandler(this.getMessage);
         try {
             b = new ServerBootstrap();
             b.group(bossGroup, workGroup)
                 .channel(NioServerSocketChannel.class)
-                .option(ChannelOption.SO_BACKLOG, 1000)
+                .option(ChannelOption.SO_BACKLOG, 1024)
                 .handler(new LoggingHandler(LogLevel.INFO))
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
-                    public void initChannel(SocketChannel ch) throws Exception{
+                    public void initChannel(SocketChannel ch) {
                         ChannelPipeline p = ch.pipeline();
-                        p.addLast(messageHandler);
+//                        p.addLast(new FixedLengthFrameDecoder(1024));
+//                        p.addLast(new StringDecoder());
+                        p.addLast(new MessageHandler(getMessage));
                     }
                 });
                 ChannelFuture future = b.bind(port).sync();
-                future.channel().closeFuture().sync();
+                future.channel().closeFuture();
         } catch (Exception e) {
             //TODO: handle exception
             bossGroup.shutdownGracefully();

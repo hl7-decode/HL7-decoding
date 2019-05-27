@@ -10,10 +10,16 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
+        String resource = "view-config/sample.fxml";
+        Parent root = FXMLLoader.load(Main.class.getClassLoader().getResource(resource));
+        primaryStage.setTitle("HL7 数据服务端");
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
+    }
+
+    @Override
+    public void stop(){
+        System.exit(0);
     }
 
 

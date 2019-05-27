@@ -1,6 +1,6 @@
-package com.hl7.get;
+package com.hl7.capture;
 
-import com.java.capture.pool.PacketPool;
+import com.hl7.capture.pool.PacketPool;
 
 import org.pcap4j.core.NotOpenException;
 import org.pcap4j.core.PcapHandle;
@@ -13,8 +13,10 @@ import org.pcap4j.core.PcapNetworkInterface.PromiscuousMode;
 public class CaptureRunable implements Runnable {
 
     PcapNetworkInterface pcapNetworkInterface;
+    private String filter;
 
-    public CaptureRunable(PcapNetworkInterface pcapNetworkInetFace) {
+    public CaptureRunable(PcapNetworkInterface pcapNetworkInetFace,String filter) {
+        this.filter = filter;
         this.pcapNetworkInterface = pcapNetworkInetFace;
     }
 
@@ -28,8 +30,6 @@ public class CaptureRunable implements Runnable {
             PcapHandle.Builder pBuilder = new PcapHandle.Builder(nif.getName()).snaplen(snaplen)
                     .promiscuousMode(PromiscuousMode.PROMISCUOUS).timeoutMillis(timeout).bufferSize(1 * 1024 * 1024);
             PcapHandle handle = pBuilder.build();
-            
-            String filter = "ip and tcp and (dst host 127.0.0.1 and dst port 8080)";
             handle.setFilter(filter, BpfCompileMode.OPTIMIZE);
             PacketPool pool = new PacketPool();
             while (true) {

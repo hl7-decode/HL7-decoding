@@ -206,16 +206,50 @@ public class Terser {
             int secondPoint = targets.indexOf('(');
             if(secondPoint == -1){
                 List<Field> list;
+                // System.out.println(hashMap.containsKey("AL1") + "  " + hashMap.keySet());
+                // System.out.println(targets.equals("MSH") + "   " + targets + "   " + hashMap.containsKey(targets) + "  " + hashMap.containsKey("MSH"));
                 if(this.hashMap.containsKey(targets)){
                     list = hashMap.get(targets);
-                }else if(this.hashMap.containsKey(targets + "(0)")){
-                    list = this.hashMap.get(targets+"(0)");
+//                }else if(this.hashMap.containsKey(targets + "(0)")){
+//                    list = this.hashMap.get(targets+"(0)");
                 } else {
                     //抛出异常
                     throw new HashNullPointException();
 //                    System.out.println("哈希表中不存在相关键值");
 //                    return null;
                 }
+                target = target.substring(firstPoint + 1);
+                int thirdPoint = target.indexOf('-');
+                if(thirdPoint != -1){
+                    targets = target.substring(0, thirdPoint);
+                } else {
+                    targets = target;
+                }
+                int forthPoint = targets.indexOf('(');
+                int fifthPoint = target.indexOf('(');
+                int fieldPlace = 0;
+                if(forthPoint != -1){
+                    fieldPlace = Integer.parseInt(targets.substring(0, forthPoint));
+                    target = target.substring(fifthPoint);
+                } else {
+                    fieldPlace = Integer.parseInt(targets);
+                    if(thirdPoint == -1){
+                        target = "";
+                    } else
+                        target = target.substring(thirdPoint + 1);
+                }
+                return list.get(fieldPlace - 1).get(target);
+            } else {
+                List<Field> list;
+                if(this.hashMap.containsKey(targets)){
+                    list = hashMap.get(targets);
+                } else {
+                    //抛出异常
+                    throw new HashNullPointException();
+//                    System.out.println("哈希表中不存在相关键值");
+//                    return null;
+                }
+
                 target = target.substring(firstPoint + 1);
                 int thirdPoint = target.indexOf('-');
                 if(thirdPoint != -1){
@@ -244,7 +278,7 @@ public class Terser {
 //            return null;
             throw new WrongSearchKey();
         }
-        return null;
+//        return null;
     }
 
 

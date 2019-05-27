@@ -1,4 +1,4 @@
-package com.hl7.get.pool;
+package com.hl7.capture.pool;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.hl7.manage.GetMessage;
 import org.pcap4j.packet.Packet;
 import org.pcap4j.packet.TcpPacket;
 
@@ -14,6 +15,8 @@ import org.pcap4j.packet.TcpPacket;
  * PacketPool
  */
 public class PacketPool {
+
+    public static GetMessage getMessage = null;
 
     private ConcurrentHashMap<Long, SinglePacket> seq;
 
@@ -47,12 +50,12 @@ public class PacketPool {
         this.con = false;
     }
 
-    // @Override
+     @Override
     // @Deprecated(since = "9")
-    // private void finalize() throws Throwable {
-    //     super().finalize();;
-    //     this.con = false;
-    // }
+     protected void finalize() throws Throwable {
+         super.finalize();
+         this.con = false;
+     }
 
     public void setPacketData(Packet packet) {
         TcpPacket tcpPacket = packet.get(TcpPacket.class);
@@ -84,8 +87,9 @@ public class PacketPool {
         byte[] data = seq.get(seqNum).getData();
         try {
             String result = new String(data, "UTF-8");
-            System.out.println(result + "    " + data.length + "    " + result.length());
-            System.out.println(this.seq.size());
+            // System.out.println(result + "    " + data.length + "    " + result.length());
+            getMessage.setText(result);
+//            System.out.println(this.seq.size());
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

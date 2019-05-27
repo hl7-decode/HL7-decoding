@@ -27,9 +27,29 @@ public class FamilyManager {
     public static void update(Family family){
         MybatisUtils.getMapper(FamilyMapper.class, (SqlOperation<FamilyMapper>)(knife) -> {
             if(knife.selectById(family.family_id) == null){
+//                System.out.p-rintln("您要修改的相关联系人信息不存在！");
+                if(knife.insertFamily(family) == 1){
+                    System.out.println("联系人信息添加成功");
+                } else {
+                    System.out.println("联系人信息添加失败");
+                }
+            }else {
+                int number = knife.updateFamily(family);
+                if(number == 1){
+                    System.out.println("联系人信息修改成功");
+                } else {
+                    System.out.println("联系人信息修改失败");
+                }
+            }
+        });
+    }
+
+    public static void delete(String patient_id){
+        MybatisUtils.getMapper(FamilyMapper.class, (SqlOperation<FamilyMapper>)(knife) -> {
+            if(knife.selectByPatient(patient_id) == null){
                 System.out.println("您要修改的相关联系人信息不存在！");
             }else {
-                knife.updateFamily(family);
+                knife.delete(patient_id);
             }
         });
     }

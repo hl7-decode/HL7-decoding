@@ -31,6 +31,8 @@ public interface DoctorAdviceMapper {
         "#{doctorAdvice.doctor_advice_id}, #{doctorAdvice.patient_status}, " +
         "#{doctorAdvice.doctor_advice}, #{doctorAdvice.advice_time}, " +
         "#{doctorAdvice.doctor_name},#{doctorAdvice.remark});")
-    int insert(DoctorAdvice doctorAdvice);
+    int insert(@Param("doctorAdvice") DoctorAdvice doctorAdvice);
 
+    @Delete("delete from `doctor_advice` where `doctor_advice_id` = #{doctorAdvice.doctor_advice_id};")
+    int delete(@Param("doctorAdvice") DoctorAdvice doctorAdvice);
 }

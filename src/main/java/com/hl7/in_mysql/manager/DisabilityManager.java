@@ -39,6 +39,26 @@ public class DisabilityManager {
                 } else {
                     System.out.println("更改患者残疾信息失败！");
                 }
+            } else {
+                int number = knife.insertDisability(disability);
+                if(number == 1){
+                    System.out.println("残疾信息插入成功");
+                } else {
+                    System.out.println("残疾信息插入失败");
+                }
+            }
+        });
+    }
+
+    public static void delete(String patient_id){
+        MybatisUtils.getMapper(DisabilityMapper.class, (SqlOperation<DisabilityMapper>)(knife) -> {
+            if(knife.selectByPatient(patient_id) != null){
+                int number = knife.delete(patient_id);
+                if(number != 0){
+                    System.out.println("删除患者残疾信息成功！");
+                } else {
+                    System.out.println("删除患者残疾信息失败！");
+                }
             }
         });
     }

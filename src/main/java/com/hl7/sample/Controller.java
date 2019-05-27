@@ -1,9 +1,6 @@
 package com.hl7.sample;
 
-import ca.uhn.hl7v2.util.Hl7InputStreamMessageIterator;
-import com.hl7.eventdecode.MessageEvent;
-import com.hl7.eventdecode.MessageMain;
-import com.hl7.get.MessageGet;
+import com.hl7.get.view.MessageGet;
 import com.hl7.in_mysql.util.ReadFile;
 import com.hl7.manage.GetMessage;
 import javafx.fxml.FXML;
@@ -11,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.io.File;
 
@@ -19,16 +15,6 @@ import java.io.File;
 public class Controller implements GetMessage{
     @FXML
     TextArea HL7Data;
-
-    @FXML
-    TextArea ParserResult;
-
-    @FXML
-    Button ImportFile;
-
-    @FXML
-    Button Parse;
-
     @FXML
     Button connect;
 
@@ -52,8 +38,8 @@ public class Controller implements GetMessage{
     public void setParse() {
         String target = HL7Data.getText().replaceAll("\n", "\r");
 //        target = target.substring(1);
-        String result = new MessageMain(target).createADT();
-        ParserResult.setText(result.replaceAll(",","\n"));
+//        String result = new MessageMain(target).createADT();
+//        ParserResult.setText(result.replaceAll(",","\n"));
     }
 
     public void startListen(){
@@ -61,9 +47,11 @@ public class Controller implements GetMessage{
             messageGet = new MessageGet(this);
             HL7Data.setText("");
             connect.setText("停止捕获");
+            listening = true;
         } else {
             messageGet.close();
             connect.setText("开始捕获");
+            listening = false;
         }
     }
 

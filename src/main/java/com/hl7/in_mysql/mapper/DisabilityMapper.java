@@ -12,13 +12,13 @@ public interface DisabilityMapper {
     List<Disability> selectByPatient(@Param("patient_id") String patient_id);
 
     @Select("select * from `disability` where `disability_id` = #{disability};")
-    Disability selectById(@Param("disability_id") String disability);
+    Disability selectById(@Param("disability") String disability);
 
 
     @Update("update `disability` set" +
         "`disability_message` = #{disability.disability_message}, " +
         "`disability_start_time` = #{disability.disability_start_time}," +
-        "`disability_end_time` = #{disability.disability_end_time}, `remark` = #{disability.remark}" +
+        "`disability_end_time` = #{disability.disability_end_time}, `remark` = #{disability.remark} " +
         "where `disability_id` = #{disability.disability_id};")
     int update(@Param("disability") Disability disability);
 
@@ -39,4 +39,7 @@ public interface DisabilityMapper {
             "#{disability.patient_id},#{disability.disability_message}, " +
             "#{disability.disability_start_time},#{disability.disability_end_time},#{disability.remark});")
     int insertDisability(@Param("disability") Disability disability);
+
+    @Delete("delete from `disability` where `patient_id` = #{patient_id};")
+    int delete(@Param("patient_id") String patient_id);
 }

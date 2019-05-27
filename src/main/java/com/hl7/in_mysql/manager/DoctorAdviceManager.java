@@ -25,4 +25,14 @@ public class DoctorAdviceManager {
             }
         });
     }
+
+    public static void delete(DoctorAdvice doctorAdvice){
+        MybatisUtils.getMapper(DoctorAdviceMapper.class, (SqlOperation<DoctorAdviceMapper>)(knife) -> {
+            if(knife.selectById(doctorAdvice.doctor_advice_id) == null){
+                System.out.println("您要删除的医嘱不存在，请重新检查信息！");
+            } else {
+                knife.delete(doctorAdvice);
+            }
+        });
+    }
 }

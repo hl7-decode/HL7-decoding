@@ -1,4 +1,4 @@
-package com.hl7.get;
+package com.hl7.get.view;
 
 import com.hl7.manage.GetMessage;
 import io.netty.buffer.ByteBuf;
@@ -34,7 +34,7 @@ public class MessageHandler extends ChannelInboundHandlerAdapter{
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx){
-        getMessage.setText(stringBuffer.toString());
+        getMessage.setText(stringBuffer.toString().replaceAll("\r", "\n"));
 //        System.out.println(stringBuffer.toString());
         ctx.flush();
         ctx.close();

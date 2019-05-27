@@ -1,4 +1,4 @@
-package com.hl7.get;
+package com.hl7.get.view;
 
 import com.hl7.manage.GetMessage;
 import io.netty.bootstrap.ServerBootstrap;
@@ -10,9 +10,6 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.FixedLengthFrameDecoder;
-import io.netty.handler.codec.LineBasedFrameDecoder;
-import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
@@ -24,12 +21,14 @@ public class MessageGet {
      */
 
     ServerBootstrap b;
+    EventLoopGroup bossGroup;
+    EventLoopGroup workGroup;
 
     GetMessage getMessage;
 
     public MessageGet(GetMessage getMessage) {
         this.getMessage = getMessage;
-        start(8080);
+        start(8081);
     }
 
     public MessageGet(int port, GetMessage getMessage) {
@@ -38,8 +37,10 @@ public class MessageGet {
     }
 
     private void start(int port) {
-        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-        EventLoopGroup workGroup = new NioEventLoopGroup();
+
+        bossGroup = new NioEventLoopGroup(1);
+        workGroup = new NioEventLoopGroup();
+
         try {
             b = new ServerBootstrap();
             b.group(bossGroup, workGroup)
@@ -65,9 +66,7 @@ public class MessageGet {
     }
 
     public void close(){
-        if(b == null){
-            return;
-        }
-
+        bossGroup.shutdownGracefully();
+        workGroup.shutdownGracefully();
     }
 }

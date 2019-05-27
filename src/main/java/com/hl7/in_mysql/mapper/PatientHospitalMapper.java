@@ -2,9 +2,7 @@ package com.hl7.in_mysql.mapper;
 
 
 import com.hl7.in_mysql.enuitity.PatientHospital;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -31,7 +29,7 @@ public interface PatientHospitalMapper {
 
     @Update("update `patient_hospital` set `remark` = #{patient_hospital.remark}" +
             " where `admission_id` = #{patient_hospital.admission_id};")
-    int updateRemark(PatientHospital patient_hospital);
+    int updateRemark(@Param("patient_hospital")PatientHospital patient_hospital);
 
     @Update("update `patient_hospital` set " +
         "`doctor_advice_id` = #{patientHospital.doctor_advice_id}, `patient_location` = #{patientHospital.patient_location}, " +
@@ -43,14 +41,17 @@ public interface PatientHospitalMapper {
         "`out_time` = #{patientHospital.out_time}, `remark` = #{patientHospital.remark}," +
         "`hospital` = #{patientHospital.hospital} " +
         "where `admission_id` = #{patientHospital.admission_id};")
-    int update(PatientHospital patientHospital);
+    int update(@Param("patientHospital") PatientHospital patientHospital);
 
     @Insert("insert into `patient_hospital` values(#{patientHospital.admission_id}, #{patientHospital.patient_id}," +
         "#{patientHospital.doctor_advice_id}, #{patientHospital.patient_location}, #{patientHospital.attending_doctor}," +
-        "#{patientHospital.referring_doctor}, #{patientHospital.consult_doctor}, #{patientHospital.consult_doctor}," +
+        "#{patientHospital.referring_doctor}, #{patientHospital.consult_doctor}," +
         "#{patientHospital.admit_source}, #{patientHospital.admitting_doctor}, #{patientHospital.discharged_to_location}," +
         "#{patientHospital.bed_status}, #{patientHospital.admit_time}, #{patientHospital.out_time}, #{patientHospital.remark}," +
         "#{patientHospital.hospital});")
-    int insert(PatientHospital patientHospital);
+    int insert(@Param("patientHospital") PatientHospital patientHospital);
+
+    @Delete("delete from `patient_hospital` where `patient_id` = #{patient_id};")
+    int delte(@Param("patient_id") String patient_id);
 
 }

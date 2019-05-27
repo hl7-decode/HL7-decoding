@@ -1,10 +1,7 @@
 package com.hl7.in_mysql.mapper;
 
 import com.hl7.in_mysql.enuitity.Patient;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -81,7 +78,7 @@ public interface PatientMapper {
 
     @Insert("insert into `patient_message`" +
         "values(#{patient.patient_id},#{patient.patient_name},#{patient.birthday}," +
-        "#{patient.sex}, #{patient.id_card_number}, #{patient_address}, #{patient.patient_work_phone}," +
+        "#{patient.sex}, #{patient.id_card_number}, #{patient.patient_address}, #{patient.patient_work_phone}," +
         "#{patient.patient_home_phone},#{patient.patient_marry},#{patient.nation},#{patient.country}," +
         "#{patient.religion},#{patient.remark},#{patient.authority});")
     int insert(@Param("patient") Patient patient);
@@ -93,13 +90,13 @@ public interface PatientMapper {
 
 
     @Update("update `patient_message` set `patient_name` = #{patient.patient_name}, `birthday` = #{patient.birthday}," +
-        "`sex` = #{patient.sex}, `id_card_number` = #{patient.id_card_number}, `patient_address` = #{patient_address}," +
+        "`sex` = #{patient.sex}, `id_card_number` = #{patient.id_card_number}, `patient_address` = #{patient.patient_address}," +
         "`patient_work_phone` = #{patient.patient_work_phone}," +
-        "patient_home_phone` = #{patient.patient_home_phone}, `patient_marry` = #{patient.patient_marry}," +
+        "`patient_home_phone` = #{patient.patient_home_phone}, `patient_marry` = #{patient.patient_marry}," +
         "`nation` = #{patient.nation}, `country` = #{patient.country}," +
         "`religion` = #{patient.religion},`remark` = #{patient.remark}, `authority` = #{patient.authority} " +
         "where `patient_id` = #{patient.patient_id};")
-    int updateAll(Patient patient);
+    int updateAll(@Param("patient")Patient patient);
 
     @Update("update `patient_message` set `patient_work_phone`"
         + "= #{patient.patient_work_phone} where `patient_id` = #{patient.patient_id};")
@@ -128,5 +125,8 @@ public interface PatientMapper {
     @Update("update `patient_message` set `authority`"+
         "= #{patient.authority} where `patient_id` = #{patient.patient_id};")
     int updateAuthority(@Param("patient") Patient patient);
+
+    @Delete("delete from `patient_message` where `patient_id` = #{patient.patient_id};")
+    int delete(@Param("patient") Patient patient);
 }
 

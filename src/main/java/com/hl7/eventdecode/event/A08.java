@@ -1,12 +1,28 @@
 package com.hl7.eventdecode.event;
 
 import com.hl7.eventdecode.deal.*;
+import com.hl7.eventdecode.deal.exception.HashNullPointException;
 import com.hl7.eventdecode.segment.*;
 import com.hl7.in_mysql.enuitity.*;
+import com.hl7.in_mysql.manager.*;
 import com.hl7.in_mysql.util.FormatTime;
 import com.hl7.in_mysql.util.Json;
 
 import java.util.Date;
+
+/**
+ * A08 更新病人信息
+ * MSH
+ * PID
+ * NK1
+ * PV1
+ * DB1
+ * AL1
+ * DG1
+ *
+ *
+ */
+
 
 public class A08 {
 
@@ -22,59 +38,39 @@ public class A08 {
 
         Patient patient = new PID(this.terser).getPatient();
         //获取患者信息并
-        //写入数据库 暂无
         result += "," + Json.getJson(patient);
 
+        PatientManager.update(patient);
+
+        //写入数据库 暂无
         Family family;
         try{
             terser.get("NK1-1");
             family = new NK1(this.terser).getFamily();
             family.patient_id = patient.patient_id;
-            String time = FormatTime.formatTime(new Date());
-            family.family_id = patient.patient_id.substring(0, (20 - time.length()) >
-                patient.patient_id.length()? patient.patient_id.length() : 20 - time.length() )+ time;
-            //
+            family.family_id = patient.patient_id + family.family_name;
+            FamilyManager.update(family);
             result += "," + Json.getJson(family);
-        }catch (Exception e){
+            //
+        }catch (HashNullPointException e){
             for(int i = 0; i < 10; i++) {
                 try {
-                    this.terser.get("/NK1(" + i + ")-1");
+                    this.terser.get("NK1(" + i + ")-1");
                     family = new NK1(this.terser).getFamily(i);
                     //
                     family.patient_id = patient.patient_id;
-                    String time = FormatTime.formatTime(new Date());
-                    family.family_id = patient.patient_id.substring(0, (20 - time.length()) >
-                        patient.patient_id.length()? patient.patient_id.length() : 20 - time.length() )+ time;
+                    family.family_id = patient.patient_id + family.family_name;
+                    FamilyManager.update(family);
                     result += "," + Json.getJson(family);
-                } catch (Exception ex) {
+
+                } catch (HashNullPointException ex) {
                     break;
+                } catch (Exception ex){
+                    ex.printStackTrace();
                 }
             }
-        }
-
-        DoctorAdvice doctorAdvice = null;
-        try{
-            this.terser.get("NTE-1");
-            doctorAdvice = new NTE(this.terser).getDoctorAdvice(new DoctorAdvice());
-            if(doctorAdvice != null){
-                doctorAdvice.doctor_advice_id = FormatTime.formatTime(new Date());
-                //
-                result += "," + Json.getJson(doctorAdvice);
-            }
         }catch (Exception e){
-
-        }
-
-        PatientHospital patientHospital = new PV1(this.terser).getPatientHospital();
-        if(patientHospital != null) {
-            patientHospital.patient_id = patient.patient_id;
-            String time = FormatTime.formatTime(new Date());
-            patientHospital.admission_id = patient.patient_id.substring(0, (20 - time.length()) >
-                patient.patient_id.length() ? patient.patient_id.length() : 20 - time.length()) + time;
-            if (doctorAdvice != null)
-                patientHospital.doctor_advice_id = doctorAdvice.doctor_advice_id;
-            //
-            result += "," + Json.getJson(patientHospital);
+            e.printStackTrace();
         }
 
         Disability disability;
@@ -82,26 +78,28 @@ public class A08 {
             terser.get("DB1-1");
             disability = new DB1(this.terser).getDisability();
             disability.patient_id  = patient.patient_id;
-            String time1  = FormatTime.formatTime(new Date());
-            disability.disability_id = patient.patient_id.substring(0, (20 - time1.length()) >
-                patient.patient_id.length()? patient.patient_id.length() : 20 - time1.length() )+ time1;
-            //
+            disability.disability_id = patient.patient_id + disability.disability_start_time;
+            DisabilityManager.update(disability);
             result += "," + Json.getJson(disability);
-        }catch (Exception e){
+            //
+        }catch (HashNullPointException e){
             for(int i = 0; i < 10; i++) {
                 try {
-                    this.terser.get("/DB1(" + i + ")-1");
+                    this.terser.get("DB1(" + i + ")-1");
                     disability = new DB1(this.terser).getDisability(i);
                     disability.patient_id  = patient.patient_id;
-                    String time1  = FormatTime.formatTime(new Date());
-                    disability.disability_id = patient.patient_id.substring(0, (20 - time1.length()) >
-                        patient.patient_id.length()? patient.patient_id.length() : 20 - time1.length() )+ time1;
-                    //
+                    disability.disability_id = patient.patient_id + disability.disability_start_time;
+
+                    DisabilityManager.update(disability);
+
                     result += "," + Json.getJson(disability);
+                    //
                 } catch (Exception ex) {
                     break;
                 }
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
         Allergy allergy;
@@ -110,13 +108,16 @@ public class A08 {
             allergy = new AL1(this.terser).getAllergy();
             if(allergy != null) {
                 allergy.patient_id = patient.patient_id;
-                String time1 = FormatTime.formatTime(new Date());
-                allergy.allergy_id = patient.patient_id.substring(0, (20 - time1.length()) >
-                    patient.patient_id.length() ? patient.patient_id.length() : 20 - time1.length()) + time1;
+                allergy.allergy_id = patient.patient_id + allergy.allergy_type_code;
+
+                AllergyManager.update(allergy);
+
                 result += "," + Json.getJson(allergy);
             }
+        }catch (HashNullPointException e){
+            e.printStackTrace();
         }catch (Exception e){
-
+            e.printStackTrace();
         }
         return result;
     }

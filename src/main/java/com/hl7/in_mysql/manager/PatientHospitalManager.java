@@ -9,6 +9,8 @@ import com.hl7.manage.SqlOperation;
 
 public class PatientHospitalManager {
 
+    // 住院患者病历ID有患者ID和住院时间组成
+
     public static void insert(final PatientHospital patientHospital){
         MybatisUtils.getMapper(PatientMapper.class, (SqlOperation<PatientMapper>) (knife)  -> {
             if(knife.selectById(patientHospital.patient_id)!=null){
@@ -38,6 +40,19 @@ public class PatientHospitalManager {
                     System.out.println("信息更新成功！");
                 } else {
                     System.out.println("信息更新失败！");
+                }
+            }
+        });
+    }
+
+    public static void delete(String patient_id){
+        MybatisUtils.getMapper(PatientHospitalMapper.class, (SqlOperation<PatientHospitalMapper>) (knife) -> {
+            if(knife.selectByPatient(patient_id) != null){
+                int number = knife.delte(patient_id);
+                if(number != 0){
+                    System.out.println("信息删除成功！");
+                } else {
+                    System.out.println("信息删除失败！");
                 }
             }
         });

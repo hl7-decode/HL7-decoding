@@ -24,7 +24,11 @@ public class PatientManager {
     public static void update(final Patient patient){
         MybatisUtils.getMapper(PatientMapper.class, (SqlOperation<PatientMapper>)(knife)->{
             if(knife.selectById(patient.patient_id) == null) {
-                System.out.println("不存在该患者，请检查信息");
+                if(knife.insert(patient) == 1){
+                    System.out.println("插入患者信息成功");
+                }else {
+                    System.out.println("插入患者信息失败");
+                }
             }else {
                 int number = knife.updateAll(patient);
                 if(number == 1){
@@ -34,5 +38,40 @@ public class PatientManager {
                 }
             }
         });
+    }
+
+    public static void delete(final Patient patient){
+        MybatisUtils.getMapper(PatientMapper.class, (SqlOperation<PatientMapper>)(knife)->{
+            if(knife.selectById(patient.patient_id) == null) {
+                System.out.println("不存在该患者，请检查信息");
+            }else {
+                int number = knife.delete(patient);
+                if(number == 1){
+                    System.out.println("患者信息删除成功!");
+                }else{
+                    System.out.println("患者信息删除失败！");
+                }
+            }
+        });
+    }
+
+
+    public static Patient selectById(final Patient patient){
+        return selectById(patient.patient_id);
+    }
+
+    static Patient result = null;
+    public static Patient selectById(final String patient_id){
+        MybatisUtils.getMapper(PatientMapper.class, (SqlOperation<PatientMapper>)(knife) -> {
+            result = knife.selectById(patient_id);
+        });
+        Patient res = result;
+        result = null;
+        return res;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(selectById("12321321321321212345"));
+//        System.out.println(result);
     }
 }

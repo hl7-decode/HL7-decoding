@@ -46,4 +46,16 @@ public class OutPatientManager {
             }
         });
     }
+
+    public static void delete(final String patient_id){
+        MybatisUtils.getMapper(OutPatientMapper.class, (SqlOperation<OutPatientMapper>)(knife) -> {
+            if(knife.selectByPatient(patient_id).size() != 0){
+                if(knife.delete(patient_id) != 0){
+                    System.out.println("删除成功！");
+                }else{
+                    System.out.println("删除失败！");
+                }
+            }
+        });
+    }
 }

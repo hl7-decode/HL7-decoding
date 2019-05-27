@@ -24,5 +24,11 @@
     <!-- 在配置文件中 关联包下的 接口类-->
     <mappers>
         <mapper class="com.hl7.in_mysql.mapper.PatientMapper"/>
+        <mapper class="com.hl7.in_mysql.mapper.PatientHospitalMapper" />
+        <mapper class="com.hl7.in_mysql.mapper.OutPatientMapper" />
+        <mapper class="com.hl7.in_mysql.mapper.FamilyMapper" />
+        <mapper class="com.hl7.in_mysql.mapper.DoctorAdviceMapper" />
+        <mapper class="com.hl7.in_mysql.mapper.DisabilityMapper" />
+        <mapper class="com.hl7.in_mysql.mapper.AllergyMapper" />
     </mappers>
 </configuration>

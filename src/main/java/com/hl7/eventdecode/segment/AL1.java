@@ -24,7 +24,7 @@ public class AL1 {
         try{
             allergy.allergy_reaction_code = terser.get("AL1-5");
             allergy.allergy_type_code = terser.get("AL1-2");
-            allergy.allergy_severity_code = terser.get("Al1-4");
+            allergy.allergy_severity_code = terser.get("AL1-4");
             String allergyMessage = terser.get("AL1-3-3");
             allergy.allergy_type_message = (allergyMessage == null ? terser.get("AL1-3") : allergyMessage);
             allergy.remark = null;
@@ -42,7 +42,7 @@ public class AL1 {
             allergy.patient_id = null;
             allergy.allergy_reaction_code = terser.get("AL1(" + i +")-5");
             allergy.allergy_type_code = terser.get("AL1(" + i + ")-2");
-            allergy.allergy_severity_code = terser.get("Al1(" + i + ")-4");
+            allergy.allergy_severity_code = terser.get("AL1(" + i + ")-4");
             String allergyMessage = terser.get("AL1(" + i + ")-3-3");
             allergy.allergy_type_message = (allergyMessage == null ? terser.get("AL1(" + i + ")-3") : allergyMessage);
             allergy.remark = null;

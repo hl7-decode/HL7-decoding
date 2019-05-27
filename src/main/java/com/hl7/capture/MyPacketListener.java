@@ -1,14 +1,9 @@
-package com.hl7.get;
+package com.hl7.capture;
 
-import java.io.UnsupportedEncodingException;
-import java.net.Inet4Address;
-
-import com.java.capture.pool.PacketPool;
+import com.hl7.capture.pool.PacketPool;
 
 import org.pcap4j.core.PacketListener;
-import org.pcap4j.packet.IpV4Packet;
 import org.pcap4j.packet.Packet;
-import org.pcap4j.packet.TcpPacket;
 
 public class MyPacketListener implements PacketListener {
 

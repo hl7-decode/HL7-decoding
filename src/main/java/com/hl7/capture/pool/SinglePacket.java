@@ -1,8 +1,6 @@
-package com.java.capture.pool;
+package com.hl7.capture.pool;
 
 import java.util.Date;
-
-import org.pcap4j.packet.Packet;
 
 public class SinglePacket {
 

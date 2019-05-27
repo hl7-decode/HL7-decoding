@@ -2,10 +2,7 @@ package com.hl7.in_mysql.mapper;
 
 
 import com.hl7.in_mysql.enuitity.OutPatient;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -41,11 +38,14 @@ public interface OutPatientMapper {
         "`doctor_name` = #{outPatient.doctor_name}, `hospital_name` = #{outPatient.hospital_name}," +
         "`remark` = #{outPatient.remark}" +
         "where `diagnosis_id` = #{outPatient.diagnosis_id};")
-    int update(OutPatient outPatient);
+    int update(@Param("outPatient") OutPatient outPatient);
 
     @Insert("insert into `out_patient` values(#{outPatient.diagnosis_id}, " +
         "#{outPatient.patient_id},#{outPatient.doctor_advice_id}, #{outPatient.patient_read_me}" +
         "#{outPatient.doctor_diagnosis}, #{outPatient.doctor_name}, #{outPatient.hospital_name}," +
         " #{outPatient.remark});")
-    int insert(OutPatient outPatient);
+    int insert(@Param("outPatient") OutPatient outPatient);
+
+    @Delete("delete from `out_patient` where `patient_id` = #{patient_id};")
+    int delete(@Param("patient_id") String patient_id);
 }

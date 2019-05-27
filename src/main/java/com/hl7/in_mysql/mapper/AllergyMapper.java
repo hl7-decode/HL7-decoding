@@ -13,7 +13,7 @@ public interface AllergyMapper {
     List<Allergy> selectBy();
 
     @Select("select * from `allergy` where `allergy_id` = #{allergy.allergy_id};")
-    List<Allergy> selectById(@Param("allergy") Allergy allergy);
+    Allergy selectById(@Param("allergy") Allergy allergy);
 
     @Select("select * from `allergy` where `patient_id` = #{patient_id};")
     List<Allergy> selectByPatient(String patient_id);
@@ -25,9 +25,9 @@ public interface AllergyMapper {
             "`remark` = #{allergy.remark};")
     int updateMessage(@Param("allergy") Allergy allergy);
 
-    @Update("update `allergy` set `allergy.allergy_id` = #{allergy.allergy_id}," +
+    @Update("update `allergy` set `allergy_id` = #{allergy.allergy_id}," +
         "`allergy_type_code` = #{allergy.allergy_type_code}," +
-        "allergy_type_message` = #{allergy.allergy_type_message}, `allergy_severity_code` = #{allergy.allergy_severity_code}," +
+        "`allergy_type_message` = #{allergy.allergy_type_message}, `allergy_severity_code` = #{allergy.allergy_severity_code}," +
         "`allergy_reaction_code` = #{allergy.allergy_reaction_code}, `remark` = #{allergy.remark} where `patient_id` = #{allergy.patient_id};")
     int updateByPatient(@Param("allergy") Allergy allergy);
 
@@ -39,4 +39,7 @@ public interface AllergyMapper {
             "#{allergy.allergy_type_message},#{allergy.allergy_severity_code}," +
             "#{allergy.allergy_reaction_code}, #{allergy.remark});")
     int insertAllergy(@Param("allergy") Allergy allergy);
+
+    @Delete("delete from `allergy` where `patient_id` = #{patient_id};")
+    int delete(@Param("patient_id") String patient_id);
 }

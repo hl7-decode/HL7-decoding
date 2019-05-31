@@ -16,18 +16,18 @@ public class OutPatientManager {
 
                 MybatisUtils.getMapper(OutPatientMapper.class, (SqlOperation<OutPatientMapper>)(knife) -> {
                     if(knife.selectById(outPatient.diagnosis_id) != null){
-                        System.out.println("已存在相关诊断信息，请重新确认相关信息是否正确");
+                         System.out.println("已存在相关诊断信息，请重新确认相关信息是否正确");
                     } else {
                         int number = knife.insert(outPatient);
                         if(number == 1){
-                            System.out.println("门诊信息插入成功");
+                             System.out.println("门诊信息插入成功");
                         }else {
-                            System.out.println("门诊信息插入失败");
+                             System.out.println("门诊信息插入失败");
                         }
                     }
                 });
             } else {
-                System.out.println("患者信息不存在，请检查您的患者信息！");
+                 System.out.println("患者信息不存在，请检查您的患者信息！");
             }
         });
     }
@@ -37,12 +37,12 @@ public class OutPatientManager {
             if(knife.selectById(outPatient.diagnosis_id) != null){
                 int number = knife.update(outPatient);
                 if(number == 1){
-                    System.out.println("更新门诊信息成功。");
+                     System.out.println("更新门诊信息成功。");
                 } else {
-                    System.out.println("更新门诊信息失败。");
+                     System.out.println("更新门诊信息失败。");
                 }
             } else {
-                System.out.println("相关门诊信息不存在!");
+                 System.out.println("相关门诊信息不存在!");
             }
         });
     }
@@ -51,9 +51,9 @@ public class OutPatientManager {
         MybatisUtils.getMapper(OutPatientMapper.class, (SqlOperation<OutPatientMapper>)(knife) -> {
             if(knife.selectByPatient(patient_id).size() != 0){
                 if(knife.delete(patient_id) != 0){
-                    System.out.println("删除成功！");
+                     System.out.println("删除成功！");
                 }else{
-                    System.out.println("删除失败！");
+                     System.out.println("删除失败！");
                 }
             }
         });

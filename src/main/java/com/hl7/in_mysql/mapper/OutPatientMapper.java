@@ -41,7 +41,7 @@ public interface OutPatientMapper {
     int update(@Param("outPatient") OutPatient outPatient);
 
     @Insert("insert into `out_patient` values(#{outPatient.diagnosis_id}, " +
-        "#{outPatient.patient_id},#{outPatient.doctor_advice_id}, #{outPatient.patient_read_me}" +
+        "#{outPatient.patient_id},#{outPatient.doctor_advice_id}, #{outPatient.patient_read_me}," +
         "#{outPatient.doctor_diagnosis}, #{outPatient.doctor_name}, #{outPatient.hospital_name}," +
         " #{outPatient.remark});")
     int insert(@Param("outPatient") OutPatient outPatient);

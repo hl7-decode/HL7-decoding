@@ -41,8 +41,8 @@ public class Capture {
 
 
     public static void main(String[] args) throws PcapNativeException {
-        Capture c = new Capture("127.0.0.1", 8080);
-        c.close();
+        Capture c = new Capture("127.0.0.1", 8081);
+//        c.close();
         // c.startCapture("127.0.0.1", 8080);
     }
 }

@@ -28,7 +28,7 @@ public class ServerHandler  extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
-        new MessageMain(stringBuffer.toString()).createADT();
+//        new MessageMain(stringBuffer.toString()).createADT();
         System.out.println(stringBuffer.toString());
         ctx.flush();
         ctx.close();

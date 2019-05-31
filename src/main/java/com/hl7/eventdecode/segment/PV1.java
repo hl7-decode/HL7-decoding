@@ -72,6 +72,8 @@ public class PV1 {
             patientHospital.admit_time = admit_time;
 
             String out_time = terser.get("PV1-45");
+            if(out_time!=null && out_time.equals(""))
+                out_time = null;
             patientHospital.out_time = out_time;
 
             String discharged_to_location = terser.get("PV1-36");

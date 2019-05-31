@@ -1,6 +1,5 @@
 package com.hl7.get;
 
-import com.hl7.get.view.MessageHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -12,7 +11,7 @@ import io.netty.handler.logging.LoggingHandler;
 public class Server {
 
     public static void main(String[] args) {
-        Server.start(8080);
+        Server.start(8081);
     }
 
     private static void start(int port) {

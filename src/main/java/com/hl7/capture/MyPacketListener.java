@@ -3,7 +3,11 @@ package com.hl7.capture;
 import com.hl7.capture.pool.PacketPool;
 
 import org.pcap4j.core.PacketListener;
+import org.pcap4j.packet.IllegalRawDataException;
 import org.pcap4j.packet.Packet;
+import org.pcap4j.packet.TcpPacket;
+import org.pcap4j.packet.factory.PacketFactories;
+import org.pcap4j.packet.namednumber.DataLinkType;
 
 public class MyPacketListener implements PacketListener {
 
@@ -15,7 +19,15 @@ public class MyPacketListener implements PacketListener {
 
     @Override
     public void gotPacket(Packet packet) {
-        this.pool.setPacketData(packet);
+        System.out.println("get");
+//        this.pool.setPacketData(packet);
+        TcpPacket tcpPacket = packet.get(TcpPacket.class);
+        byte[] data = tcpPacket.getRawData();
+        try {
+            this.pool.setPacketData(TcpPacket.newPacket(data,0,data.length));
+        } catch (IllegalRawDataException e) {
+            e.printStackTrace();
+        }
         // IpV4Packet ipV4Packet = packet.get(IpV4Packet.class);
         // Inet4Address srcAddress = ipV4Packet.getHeader().getSrcAddr();
         // System.out.println(srcAddress.toString());

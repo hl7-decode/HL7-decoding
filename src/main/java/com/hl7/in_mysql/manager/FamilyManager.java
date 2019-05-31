@@ -13,13 +13,13 @@ public class FamilyManager {
             if(knife.selectById(family.patient_id) != null){
                 MybatisUtils.getMapper(FamilyMapper.class, (SqlOperation<FamilyMapper>)(knife1) -> {
                     if(knife1.selectById(family.family_id) != null){
-                        System.out.println("您的联系人信息已存在，请重新检查");
+                         System.out.println("您的联系人信息已存在，请重新检查");
                     }else {
                         knife1.insertFamily(family);
                     }
                 });
             }else{
-                System.out.println("患者信息不存在，请重新检查相关信息！");
+                 System.out.println("患者信息不存在，请重新检查相关信息！");
             }
         });
     }
@@ -27,18 +27,18 @@ public class FamilyManager {
     public static void update(Family family){
         MybatisUtils.getMapper(FamilyMapper.class, (SqlOperation<FamilyMapper>)(knife) -> {
             if(knife.selectById(family.family_id) == null){
-//                System.out.p-rintln("您要修改的相关联系人信息不存在！");
+                System.out.println("您要修改的相关联系人信息不存在！");
                 if(knife.insertFamily(family) == 1){
-                    System.out.println("联系人信息添加成功");
+                     System.out.println("联系人信息添加成功");
                 } else {
-                    System.out.println("联系人信息添加失败");
+                     System.out.println("联系人信息添加失败");
                 }
             }else {
                 int number = knife.updateFamily(family);
                 if(number == 1){
-                    System.out.println("联系人信息修改成功");
+                     System.out.println("联系人信息修改成功");
                 } else {
-                    System.out.println("联系人信息修改失败");
+                     System.out.println("联系人信息修改失败");
                 }
             }
         });
@@ -47,7 +47,7 @@ public class FamilyManager {
     public static void delete(String patient_id){
         MybatisUtils.getMapper(FamilyMapper.class, (SqlOperation<FamilyMapper>)(knife) -> {
             if(knife.selectByPatient(patient_id) == null){
-                System.out.println("您要修改的相关联系人信息不存在！");
+                 System.out.println("您要修改的相关联系人信息不存在！");
             }else {
                 knife.delete(patient_id);
             }

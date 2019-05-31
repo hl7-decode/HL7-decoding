@@ -16,14 +16,14 @@ public class AllergyManager {
 
         MybatisUtils.getMapper(PatientMapper.class, (SqlOperation<PatientMapper>)(knife)->{
             if(knife.selectById(allergy.patient_id) == null){
-                System.out.println("不存在该患者，请确认后再插入");
+                 System.out.println("不存在该患者，请确认后再插入");
             } else {
                 MybatisUtils.getMapper(AllergyMapper.class, (SqlOperation<AllergyMapper>)(knife1)->{
                     if(knife1.selectById(allergy) != null){
-                        System.out.println("已存在该患者的过敏信息，请重新确认您的操作！");
+                         System.out.println("已存在该患者的过敏信息，请重新确认您的操作！");
                     } else {
                         knife1.insertAllergy(allergy);
-                        System.out.println("插入患者信息成功");
+                         System.out.println("插入患者信息成功");
                     }
                 });
             }
@@ -35,9 +35,9 @@ public class AllergyManager {
             if(knife.selectByPatient(allergy.patient_id) != null){
                 int number = knife.updateByPatient(allergy);
                 if(number == 1){
-                    System.out.println("过敏信息更新成功！");
+                     System.out.println("过敏信息更新成功！");
                 } else {
-                    System.out.println("过敏信息更新失败！");
+                     System.out.println("过敏信息更新失败！");
                 }
             }
         });
@@ -48,9 +48,9 @@ public class AllergyManager {
             if(knife.selectByPatient(patient_id) != null){
                 int number = knife.delete(patient_id);
                 if(number != 0){
-                    System.out.println("过敏信息删除成功！");
+                     System.out.println("过敏信息删除成功！");
                 } else {
-                    System.out.println("过敏信息删除失败！");
+                     System.out.println("过敏信息删除失败！");
                 }
             }
         });

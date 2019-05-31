@@ -14,18 +14,18 @@ public class DisabilityManager {
            if(knife1.selectById(disability.patient_id) != null){
                MybatisUtils.getMapper(DisabilityMapper.class, (SqlOperation<DisabilityMapper>)(knife) -> {
                    if(knife.selectById(disability.disability_id) != null){
-                       System.out.println("数据库已存在此残疾信息，请重新检查！");
+                        System.out.println("数据库已存在此残疾信息，请重新检查！");
                    } else {
                        int number = knife.insertDisability(disability);
                        if(number == 1){
-                           System.out.println("插入患者信息成功！");
+                            System.out.println("插入患者信息成功！");
                        } else {
-                           System.out.println("插入患者信息失败!");
+                            System.out.println("插入患者信息失败!");
                        }
                    }
                });
            }else {
-               System.out.println("相关患者不存在，请检查患者信息！");
+                System.out.println("相关患者不存在，请检查患者信息！");
            }
         });
     }
@@ -35,16 +35,16 @@ public class DisabilityManager {
             if(knife.selectById(disability.disability_id) != null){
                 int number = knife.update(disability);
                 if(number == 1){
-                    System.out.println("更改患者残疾信息成功！");
+                     System.out.println("更改患者残疾信息成功！");
                 } else {
-                    System.out.println("更改患者残疾信息失败！");
+                     System.out.println("更改患者残疾信息失败！");
                 }
             } else {
                 int number = knife.insertDisability(disability);
                 if(number == 1){
-                    System.out.println("残疾信息插入成功");
+                     System.out.println("残疾信息插入成功");
                 } else {
-                    System.out.println("残疾信息插入失败");
+                     System.out.println("残疾信息插入失败");
                 }
             }
         });
@@ -55,9 +55,9 @@ public class DisabilityManager {
             if(knife.selectByPatient(patient_id) != null){
                 int number = knife.delete(patient_id);
                 if(number != 0){
-                    System.out.println("删除患者残疾信息成功！");
+                     System.out.println("删除患者残疾信息成功！");
                 } else {
-                    System.out.println("删除患者残疾信息失败！");
+                     System.out.println("删除患者残疾信息失败！");
                 }
             }
         });

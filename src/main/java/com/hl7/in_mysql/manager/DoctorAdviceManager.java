@@ -9,7 +9,7 @@ public class DoctorAdviceManager {
     public static void insert(DoctorAdvice doctorAdvice){
         MybatisUtils.getMapper(DoctorAdviceMapper.class, (SqlOperation<DoctorAdviceMapper>)(knife) -> {
             if(knife.selectById(doctorAdvice.doctor_advice_id) != null){
-                System.out.println("您要插入的医嘱已存在，请检查相关信息");
+                 System.out.println("您要插入的医嘱已存在，请检查相关信息");
             } else {
                 knife.insert(doctorAdvice);
             }
@@ -19,7 +19,7 @@ public class DoctorAdviceManager {
     public static void update(DoctorAdvice doctorAdvice){
         MybatisUtils.getMapper(DoctorAdviceMapper.class, (SqlOperation<DoctorAdviceMapper>)(knife) -> {
             if(knife.selectById(doctorAdvice.doctor_advice_id) == null){
-                System.out.println("您要更新的医嘱不存在，请重新检查信息！");
+                 System.out.println("您要更新的医嘱不存在，请重新检查信息！");
             } else {
                 knife.update(doctorAdvice);
             }
@@ -29,7 +29,7 @@ public class DoctorAdviceManager {
     public static void delete(DoctorAdvice doctorAdvice){
         MybatisUtils.getMapper(DoctorAdviceMapper.class, (SqlOperation<DoctorAdviceMapper>)(knife) -> {
             if(knife.selectById(doctorAdvice.doctor_advice_id) == null){
-                System.out.println("您要删除的医嘱不存在，请重新检查信息！");
+                 System.out.println("您要删除的医嘱不存在，请重新检查信息！");
             } else {
                 knife.delete(doctorAdvice);
             }

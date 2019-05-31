@@ -11,12 +11,12 @@ public class PatientManager {
             if(knife.selectById(patient.patient_id) == null){
                 int number = knife.insert(patient);
                 if(number == 1){
-                    System.out.println("患者信息插入成功！");
+                     System.out.println("患者信息插入成功！");
                 }else {
-                    System.out.println("患者信息插入失败！");
+                     System.out.println("患者信息插入失败！");
                 }
             } else {
-                System.out.println("患者信息已存在！");
+                 System.out.println("患者信息已存在！");
             }
         });
     }
@@ -25,16 +25,16 @@ public class PatientManager {
         MybatisUtils.getMapper(PatientMapper.class, (SqlOperation<PatientMapper>)(knife)->{
             if(knife.selectById(patient.patient_id) == null) {
                 if(knife.insert(patient) == 1){
-                    System.out.println("插入患者信息成功");
+                     System.out.println("插入患者信息成功");
                 }else {
-                    System.out.println("插入患者信息失败");
+                     System.out.println("插入患者信息失败");
                 }
             }else {
                 int number = knife.updateAll(patient);
                 if(number == 1){
-                    System.out.println("患者信息更新成功!");
+                     System.out.println("患者信息更新成功!");
                 }else{
-                    System.out.println("患者信息更新失败！");
+                     System.out.println("患者信息更新失败！");
                 }
             }
         });
@@ -43,13 +43,13 @@ public class PatientManager {
     public static void delete(final Patient patient){
         MybatisUtils.getMapper(PatientMapper.class, (SqlOperation<PatientMapper>)(knife)->{
             if(knife.selectById(patient.patient_id) == null) {
-                System.out.println("不存在该患者，请检查信息");
+                 System.out.println("不存在该患者，请检查信息");
             }else {
                 int number = knife.delete(patient);
                 if(number == 1){
-                    System.out.println("患者信息删除成功!");
+                     System.out.println("患者信息删除成功!");
                 }else{
-                    System.out.println("患者信息删除失败！");
+                     System.out.println("患者信息删除失败！");
                 }
             }
         });

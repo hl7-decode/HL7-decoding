@@ -52,6 +52,6 @@ public interface PatientHospitalMapper {
     int insert(@Param("patientHospital") PatientHospital patientHospital);
 
     @Delete("delete from `patient_hospital` where `patient_id` = #{patient_id};")
-    int delte(@Param("patient_id") String patient_id);
+    int delete(@Param("patient_id") String patient_id);
 
 }

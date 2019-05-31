@@ -57,8 +57,8 @@ public class PacketPool {
          this.con = false;
      }
 
-    public void setPacketData(Packet packet) {
-        TcpPacket tcpPacket = packet.get(TcpPacket.class);
+    public void setPacketData(TcpPacket tcpPacket) {
+//        TcpPacket tcpPacket = packet.get(TcpPacket.class);
         long seqNum = tcpPacket.getHeader().getSequenceNumberAsLong();
         byte[] newData = tcpPacket.getPayload().getRawData();
         if (seq.containsKey(seqNum)) {
@@ -87,8 +87,9 @@ public class PacketPool {
         byte[] data = seq.get(seqNum).getData();
         try {
             String result = new String(data, "UTF-8");
+            System.out.println(result.replaceAll("\r", "\n"));
             // System.out.println(result + "    " + data.length + "    " + result.length());
-            getMessage.setText(result);
+//            getMessage.setText(result);
 //            System.out.println(this.seq.size());
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block

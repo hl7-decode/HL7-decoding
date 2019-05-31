@@ -13,6 +13,7 @@ import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.streams.KafkaStreams;
 import org.pcap4j.packet.IllegalRawDataException;
 import org.pcap4j.packet.Packet;
@@ -22,7 +23,7 @@ import org.pcap4j.packet.namednumber.DataLinkType;
 
 public class KafkaConsume extends Thread {
 
-    private final KafkaConsumer<String, String> consumer;
+    private final KafkaConsumer<String, byte[]> consumer;
     private final String topic;
     private PacketPool packetPool;
 
@@ -42,8 +43,8 @@ public class KafkaConsume extends Thread {
         props.put("key.deserializer",
                 "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("value.deserializer",
-                "org.apache.kafka.common.serialization.StringDeserializer");
-        consumer = new KafkaConsumer<String, String>(props);
+                "org.apache.kafka.common.serialization.ByteArrayDeserializer");
+        consumer = new KafkaConsumer<String, byte[]>(props);
         this.topic = topic;
         packetPool = new PacketPool();
     }
@@ -55,19 +56,23 @@ public class KafkaConsume extends Thread {
 
         while (true) {
             // System.out.println("sfadsaf");
-            ConsumerRecords<String, String> records = consumer.poll(100);
+            ConsumerRecords<String, byte[]> records = consumer.poll(100);
 
-            for (ConsumerRecord<String, String> record : records) {
-                // byte[] data = record.value().getBytes();
+            for (ConsumerRecord<String, byte[]> record : records) {
+//                 byte[] data = record.value()
                 // System.out.println("sfadsaf");
-                // try {
-                //     packetPool.setPacketData(TcpPacket.newPacket(data, 0, data.length));
-                // } catch (IllegalRawDataException e) {
-                //     // TODO Auto-generated catch block
-                //     e.printStackTrace();
-                // }
-                System.out.println("key :   " + record.key() + "   offset : " + record.offset() + "   " + record.value());
-                new MessageMain(record.value()).createADT();
+                TcpPacket tcpPacket = null;
+                byte[] data = record.value().clone();
+                try {
+                    tcpPacket = TcpPacket.newPacket(data, 0, data.length);
+                } catch (IllegalRawDataException e) {
+                    e.printStackTrace();
+                }
+                if (tcpPacket == null)
+                    continue;
+                packetPool.setPacketData(tcpPacket);
+                System.out.println("key :   " + record.key() + "   offset : " + record.offset() + "   ");
+//                new MessageMain(record.value()).createADT();
                 // packetPool.setPacketData(
                 //         PacketFactories.getFactory(Packet.class, 
                 //         DataLinkType.class).newInstance(data, 0, data.length));

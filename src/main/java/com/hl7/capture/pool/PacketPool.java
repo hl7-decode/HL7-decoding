@@ -58,22 +58,29 @@ public class PacketPool {
      }
 
     public void setPacketData(TcpPacket tcpPacket) {
+        if(tcpPacket == null){
+            System.out.println("为空");
+        }
+        System.out.println(tcpPacket.getRawData().length + "  " + (tcpPacket.getPayload() == null));
 //        TcpPacket tcpPacket = packet.get(TcpPacket.class);
+//        System.out.println("error : " + tcpPacket.getPayload() + "  header : " + tcpPacket.getHeader());
         long seqNum = tcpPacket.getHeader().getSequenceNumberAsLong();
-        byte[] newData = tcpPacket.getPayload().getRawData();
+        byte[] newData = null;
+        if(tcpPacket.getPayload() != null)
+            newData = tcpPacket.getPayload().getRawData();
         if (seq.containsKey(seqNum)) {
             byte[] mergeData = this.mergeArray(seq.get(seqNum).getData(), newData);
             seq.remove(seqNum);
-            seqNum += (long) newData.length;
+            seqNum += (long) (newData == null ? 0 : newData.length);
             seqNum = this.setData(seqNum, mergeData);
-        } else if(seq.containsKey(seqNum + newData.length)){
+        } else if(seq.containsKey(seqNum + (newData == null? 0 : newData.length))){
             
         } else {
             if(tcpPacket.getHeader().getSyn())
                 seqNum += 1;
             else
-                seqNum += newData.length;
-            seq.put(seqNum, new SinglePacket(tcpPacket.getPayload().getRawData(), seqNum));
+                seqNum += (long) (newData == null ? 0 : newData.length);;
+            seq.put(seqNum, new SinglePacket(tcpPacket.getPayload() == null ? null : tcpPacket.getPayload().getRawData(), seqNum));
         }
         if (tcpPacket.getHeader().getPsh()) {
             this.getStringData(seqNum);
@@ -86,6 +93,8 @@ public class PacketPool {
     private void getStringData(long seqNum) {
         byte[] data = seq.get(seqNum).getData();
         try {
+            System.out.println(data == null);
+            if(data == null) return;
             String result = new String(data, "UTF-8");
             System.out.println(result.replaceAll("\r", "\n"));
             // System.out.println(result + "    " + data.length + "    " + result.length());

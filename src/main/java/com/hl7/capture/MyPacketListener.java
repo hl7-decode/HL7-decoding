@@ -9,6 +9,8 @@ import org.pcap4j.packet.TcpPacket;
 import org.pcap4j.packet.factory.PacketFactories;
 import org.pcap4j.packet.namednumber.DataLinkType;
 
+import java.io.UnsupportedEncodingException;
+
 public class MyPacketListener implements PacketListener {
 
     private PacketPool pool;
@@ -22,6 +24,17 @@ public class MyPacketListener implements PacketListener {
         System.out.println("get");
 //        this.pool.setPacketData(packet);
         TcpPacket tcpPacket = packet.get(TcpPacket.class);
+//        try {
+//            String s = new String(tcpPacket.getRawData(), "UTF-8");
+//            byte[] data = s.getBytes();
+//            try {
+//                this.pool.setPacketData(TcpPacket.newPacket(data,0,data.length));
+//            } catch (IllegalRawDataException e) {
+//                e.printStackTrace();
+//            }
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
         byte[] data = tcpPacket.getRawData();
         try {
             this.pool.setPacketData(TcpPacket.newPacket(data,0,data.length));
